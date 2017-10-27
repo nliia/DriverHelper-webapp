@@ -11,3 +11,7 @@ ${var}!!!
         console.log("Пришло сообщение: " + e.data);
     };
 </script>
+
+<form action="/upload/Test">
+    <p><input type="submit"></p>
+</form>

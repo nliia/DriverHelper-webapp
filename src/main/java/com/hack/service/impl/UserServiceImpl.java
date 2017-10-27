@@ -9,17 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import sun.plugin.javascript.navig.LinkArray;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author lnurullina
@@ -34,25 +27,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<AuthResponse> signUp(SignUpRequest signUpRequest) {
+    public AuthResponse signUp(SignUpRequest signUpRequest) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
         HttpEntity<SignUpRequest> request = new HttpEntity<>(signUpRequest);
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-        ResponseEntity<AuthResponse> response = restTemplate.exchange(RestUrl.SIGN_UP_METHOD.getUrl(), HttpMethod.POST, request, AuthResponse.class);
-        return response;
+        return restTemplate.exchange(RestUrl.SIGN_UP_METHOD.getUrl(), HttpMethod.POST, request, AuthResponse.class).getBody();
     }
 
     @Override
-    public ResponseEntity<AuthResponse> signIn(String email, String password) {
+    public AuthResponse signIn(String email, String password) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/json");
         headers.add("Content-Type", "application/json");
         HttpEntity<SignInRequest> request = new HttpEntity<>(new SignInRequest(email, password), headers);
-        ResponseEntity<AuthResponse> response = restTemplate.postForEntity(RestUrl.SIGN_IN_METHOD.getUrl(), request, AuthResponse.class);
+        return restTemplate.postForEntity(RestUrl.SIGN_IN_METHOD.getUrl(), request, AuthResponse.class).getBody();
 
-        return response;
     }
 }
