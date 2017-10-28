@@ -4324,6 +4324,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   margin: 7.5px -15px;
 }
 .navbar-nav > li > a {
+  width: 95px;
+  border: 1px;
+  border-color: #444444;
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
@@ -5472,6 +5475,7 @@ button.list-group-item-danger.active:focus {
   margin-bottom: 0;
   font-size: 16px;
   color: inherit;
+
 }
 .panel-title > a,
 .panel-title > small,

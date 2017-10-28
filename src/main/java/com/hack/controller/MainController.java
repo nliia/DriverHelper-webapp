@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author lnurullina
@@ -29,8 +32,28 @@ public class MainController {
     @RequestMapping("/home")
     public String getHello(Model model) {
         model.addAttribute("var", SecurityContextHolder.getContext().getAuthentication().getCredentials());
-        model.addAttribute("dtpList", dtpService.getFinishedDtps());
+        List<Dtp> list = dtpService.getDtps();
+        for (Dtp dtp : list) {
+            dtp.setDateD(new Date(dtp.getDate()));
+        }
+       model.addAttribute("dtpList", list);
         return "hello";
+    }
+
+    @RequestMapping("/archived")
+    public String getArchived(Model model) {
+        List<Dtp> list = dtpService.getArchivedDtps();
+        for (Dtp dtp : list) {
+            dtp.setDateD(new Date(dtp.getDate()));
+        }
+        model.addAttribute("dtpList", list);
+        return "archived";
+    }
+
+    @RequestMapping(value = "/close_dtp/{id}", method = RequestMethod.POST)
+    public String close(Model model, @PathVariable("id") Long id) {
+        dtpService.closeDtp(id);
+        return "redirect: /home";
     }
 
     @RequestMapping("/upload/{filename}")

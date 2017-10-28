@@ -4,7 +4,7 @@
 <title>Sign in</title>
 
 <center style="margin-top: 15%;">
-<div style="width: 20%;border: solid 3px grey; border-radius: 10px; padding: 15px;">
+<div style="width: 20%;border: solid 2px grey; border-radius: 10px; padding: 15px;">
 <#if error??>
     Bad creds
 </#if>
@@ -22,7 +22,7 @@
             <@sf.errors path="password" cssClass="help-block"/>
         </div>
         <div class="form-group" style="padding-top: 5%">
-            <input class="btn btn-info btn-outline" type="submit" value="Sing in">
+            <input class="btn" type="submit" value="Sing in">
         </div>
     </fieldset>
 

@@ -40,20 +40,24 @@ public class DocsReplacer {
 
             // Continue if there is text and contains "test"
             if (sb.length() > 0 && (sb.toString().contains("$FULLDTPPLACE") ||
-                    sb.toString().contains("$DATE")
-                    || sb.toString().contains("$CC")
-                    || sb.toString().contains("$VN")
-                    || sb.toString().contains("$WITNESS"))) {
+                    sb.toString().contains("$FIRSTNAME")
+                    || sb.toString().contains("$SECONDNAME"))) {
                 // Remove all existing runs
                 for (int i = numberOfRuns; i >= 0; i--) {
                     p.removeRun(i);
                 }
                 String text = sb.toString();
-                text = text.replace("$FULLDTPPLACE", dtp.getFullDtpPlace());
-                text = text.replace("$DATE", dtp.getDate());
-                text = text.replace("$CC", String.valueOf(dtp.getCarCrashedCount()));
-                text = text.replace("$VN", String.valueOf(dtp.getVictimsNumbers()));
-                text = text.replace("$WITNESS", "WITNESS");
+                if (dtp.getFullDtpPlace() != null)
+                    text = text.replace("$FULLDTPPLACE", dtp.getFullDtpPlace());
+                if (dtp.getFirstUser() != null && dtp.getFirstUser().getFirstName() != null)
+                    text = text.replace("$FIRSTNAME", dtp.getFirstUser().getFirstName());
+                if (dtp.getSecondUser() != null && dtp.getSecondUser().getFirstName() != null)
+                    text = text.replace("$SECONDNAME", dtp.getFirstUser().getFirstName());
+
+                if (dtp.getFirstUsersName() != null)
+                    text = text.replace("$FIRSTNAME", dtp.getFirstUsersName());
+                if (dtp.getSecondUsersName() != null)
+                    text = text.replace("$SECONDNAME", dtp.getSecondUsersName());
 
                 // Add new run with updated text
                 XWPFRun run = p.createRun();

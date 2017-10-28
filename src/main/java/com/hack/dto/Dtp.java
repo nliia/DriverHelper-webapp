@@ -1,5 +1,6 @@
 package com.hack.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hack.model.Car;
 import com.hack.model.User;
@@ -13,7 +14,7 @@ import java.util.Date;
 public class Dtp {
     private Long id;
     private String fullDtpPlace;
-    private String date;
+    private Long date;
     private int carCrashedCount;
     private int victimsNumbers;
     private boolean matherialDamageToTransportExceptAandB;
@@ -26,6 +27,10 @@ public class Dtp {
     private User secondUser;
     private Car firstCar;
     private Car secondCar;
+    private String firstUsersName;
+    private String secondUsersName;
+    @JsonIgnore
+    private Date dateD;
 
     public String getFullDtpPlace() {
         return fullDtpPlace;
@@ -140,11 +145,36 @@ public class Dtp {
         this.id = id;
     }
 
-    public String getDate() {
+
+    public String getFirstUsersName() {
+        return firstUsersName;
+    }
+
+    public void setFirstUsersName(String firstUsersName) {
+        this.firstUsersName = firstUsersName;
+    }
+
+    public String getSecondUsersName() {
+        return secondUsersName;
+    }
+
+    public void setSecondUsersName(String secondUsersName) {
+        this.secondUsersName = secondUsersName;
+    }
+
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Long date) {
         this.date = date;
+    }
+
+    public Date getDateD() {
+        return dateD;
+    }
+
+    public void setDateD(Date dateD) {
+        this.dateD = dateD;
     }
 }
