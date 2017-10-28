@@ -28,9 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthResponse signUp(SignUpRequest signUpRequest) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", "application/json");
-        headers.add("Content-Type", "application/json");
         HttpEntity<SignUpRequest> request = new HttpEntity<>(signUpRequest);
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
